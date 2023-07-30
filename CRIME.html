@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>EWS Risk Assessment</title>
+</head>
+<body>
+  <h1>EWS Risk Assessment</h1>
+
+  <!-- Input components -->
+  <label for="crime-type">CRIME TYPE:</label>
+  <select id="crime-type">
+    <option value="no-arrests">No arrests</option>
+    <option value="arrests">Arrests other than an off-track offense</option>
+    <option value="criminogenic">Burglary, Theft, Robbery, Criminal Mischief</option>
+  </select>
+  <br>
+
+  <label for="victim-of-personal-crime">Victim of a Personal Crime (0 or 1):</label>
+  <input type="number" id="victim-of-personal-crime" min="0" step="1" placeholder="Enter 0 or 1">
+  <br>
+
+  <label for="delinquent-friends">Delinquent Friends (0 or greater):</label>
+  <input type="number" id="delinquent-friends" min="0" step="1" placeholder="Enter 0 or greater">
+  <br>
+
+  <!-- Output components for displaying risk assessment results -->
+  <h3>Risk Assessment Results:</h3>
+  <div id="crime-result"></div>
+  <div id="victim-result"></div>
+  <div id="delinquent-result"></div>
+
+  <!-- JavaScript code -->
+  <script>
+    // Function to perform risk assessment based on CRIME TYPE
+    function calculateCrimeRisk(crimeType) {
+      if (crimeType === 'no-arrests') {
+        return 'No arrests - ON-TRACK';
+      } else if (crimeType === 'arrests') {
+        return 'Arrests other than an off-track offense - AT-RISK';
+      } else if (crimeType === 'criminogenic') {
+        return 'Burglary, Theft, Robbery, Criminal Mischief - OFF-TRACK';
+      }
+    }
+
+    // Function to perform risk assessment based on Victim of a Personal Crime
+    function calculateVictimRisk(victimOfPersonalCrime) {
+      if (victimOfPersonalCrime >= 1) {
+        return 'Victim of a Personal Crime - OFF-TRACK';
+      } else {
+        return 'No victimization - ON-TRACK';
+      }
+    }
+
+    // Function to perform risk assessment based on Delinquent Friends
+    function calculateDelinquentRisk(delinquentFriends) {
+      if (delinquentFriends >= 1) {
+        return 'Delinquent Friends - OFF-TRACK';
+      } else {
+        return 'No delinquent friends - ON-TRACK';
+      }
+    }
+
+    // Function to update the risk assessment results
+    function updateRiskResults() {
+      const crimeTypeSelect = document.getElementById('crime-type');
+      const victimOfPersonalCrimeInput = document.getElementById('victim-of-personal-crime');
+      const delinquentFriendsInput = document.getElementById('delinquent-friends');
+      const crimeResultDiv = document.getElementById('crime-result');
+      const victimResultDiv = document.getElementById('victim-result');
+      const delinquentResultDiv = document.getElementById('delinquent-result');
+
+      const crimeType = crimeTypeSelect.value;
+      const victimOfPersonalCrime = parseInt(victimOfPersonalCrimeInput.value);
+      const delinquentFriends = parseInt(delinquentFriendsInput.value);
+
+      const crimeRisk = calculateCrimeRisk(crimeType);
+      const victimRisk = calculateVictimRisk(victimOfPersonalCrime);
+      const delinquentRisk = calculateDelinquentRisk(delinquentFriends);
+
+      crimeResultDiv.textContent = `CRIME TYPE: ${crimeRisk}`;
+      victimResultDiv.textContent = `Victim of a Personal Crime: ${victimRisk}`;
+      delinquentResultDiv.textContent = `Delinquent Friends: ${delinquentRisk}`;
+    }
+
+    // Add event listeners to the input elements to update the risk assessment results
+    const crimeTypeSelect = document.getElementById('crime-type');
+    const victimOfPersonalCrimeInput = document.getElementById('victim-of-personal-crime');
+    const delinquentFriendsInput = document.getElementById('delinquent-friends');
+    crimeTypeSelect.addEventListener('change', updateRiskResults);
+    victimOfPersonalCrimeInput.addEventListener('input', updateRiskResults);
+    delinquentFriendsInput.addEventListener('input', updateRiskResults);
+
+    // Initial update to display risk assessment results
+    updateRiskResults();
+  </script>
+</body>
+</html>
