@@ -34,6 +34,24 @@
       border-radius: 5px;
       cursor: pointer;
     }
+    .information-key {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      width: 250px;
+      background-color: lightgray;
+      padding: 10px;
+      text-align: left;
+    }
+    .Tool-key {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 250px;
+      background-color: lightgray;
+      padding: 10px;
+      text-align: left;
+    }
   </style>
 </head>
 <body>
@@ -65,6 +83,21 @@
   <!-- Red Button -->
   <button class="red-button" onclick="showPopup()">Is this individual a threat to society?</button>
 
+  <!-- Audio element for the siren sound -->
+  <audio id="sirenAudio" src="/Users/sakariyamohamud/Downloads/YRL6BSM-siren.mp3"></audio>
+
+  <!-- Information Key box -->
+  <div class="information-key">
+    <strong>Information Key:</strong>
+    <p>At-risk youth are identified through the analysis of their risk in three primary categories: educational risk factors, criminogenic risk factors, and adverse childhood experiences. The criteria and scoring in each category are grounded on empirically-based research of behaviors and other indicators that are indicative of a juvenile at-risk for developing into a chronic recidivist offender.</p>
+  </div>
+  <!-- Information Key box -->
+  <div class="Tool-key">
+    <strong>Tool Key:</strong>
+    <p>The three variables are part of the multiple Criminogenic Risk Factors and help PASCO County Police  determine the Risk level of the individual. 
+      More Information can be found by searching:
+      PASCO SHERIFFS OFFICE INTELLIGENCE-LED POLICING MANUAL</p>
+  </div>
   <!-- JavaScript code -->
   <script>
     // Function to perform risk assessment based on CRIME TYPE
@@ -118,9 +151,16 @@
       delinquentResultDiv.textContent = `Delinquent Friends: ${delinquentRisk}`;
     }
 
-    // Function to show the pop-up message when the button is clicked
+    // Function to play the siren sound
+    function playSiren() {
+      const sirenAudio = document.getElementById('sirenAudio');
+      sirenAudio.play();
+    }
+
+    // Function to show the pop-up message and play siren sound when the button is clicked
     function showPopup() {
       alert("Thank you for keeping your community safe by preventing future crime!");
+      playSiren();
     }
 
     // Add event listeners to the input elements to update the risk assessment results
@@ -136,4 +176,3 @@
   </script>
 </body>
 </html>
-
